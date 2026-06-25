@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "MR Assistant for GitLab",
+  "description": "MR Assistant uses AI to generate clear, concise merge request descriptions on GitLab, saving you time and improving your workflow.",
+  "version": "1.0.0",
+  "action": {
+    "default_popup": "index.html"
+  },
+  "background": {
+    "service_worker": "src/background/index.ts",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://gitlab.com/*/-/compare/*",
+        "https://gitlab.com/*/-/merge_requests/new*",
+        "*://*/*/-/compare/*",
+        "*://*/*/-/merge_requests/new*"
+      ],
+      "js": ["src/content/index.ts"]
+    }
+  ],
+  "permissions": ["storage", "activeTab"],
+  "host_permissions": [
+    "https://gitlab.com/*",
+    "*://*/*/-/compare/*",
+    "*://*/*/-/merge_requests/new*"
+  ],
+  "icons": {
+    "16": "icons/ai-pr-icon.png",
+    "48": "icons/ai-pr-icon.png",
+    "128": "icons/ai-pr-icon.png"
+  }
+}
